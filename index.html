@@ -45,6 +45,10 @@ input[type=checkbox]{width:18px;height:18px;accent-color:var(--accent)}
 .btn.sm{padding:8px 12px;font-size:14px}
 .meta{color:var(--mute);font-size:14px}
 .legend{display:flex;gap:14px;font-size:14px;margin-top:8px}
+.legend.strip{margin:0 0 12px;padding:7px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card);justify-content:center;font-size:13px}
+.legend.strip b{color:var(--mute);font-weight:500}
+.nocolor .legend.strip{display:none}
+.bonus{color:#b8860b;font-weight:600}
 .c-d{color:var(--der)}.c-f{color:var(--die)}.c-n{color:var(--das)}
 .nocolor .c-d,.nocolor .c-f,.nocolor .c-n{color:inherit}
 .bar{height:8px;background:var(--line);border-radius:8px;overflow:hidden;margin:8px 0 12px}
@@ -104,6 +108,41 @@ details summary{cursor:pointer;color:var(--accent);margin-top:10px;font-size:15p
 .wl{display:flex;justify-content:space-between;gap:10px;align-items:center;cursor:pointer}
 .wl-detail{margin:8px 0 2px 18px;padding:10px 12px;border-radius:10px;background:var(--bg)}
 .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:99px;font-size:15px;z-index:50;box-shadow:0 4px 18px rgba(0,0,0,.25)}
+.goals .g{margin:0 0 6px}
+.goals .top b{font-size:20px}
+.goals .bar{margin:6px 0 10px}
+.goals .bar.t>i{background:#c9507a}
+.strk{font-size:14px;color:var(--mute);white-space:nowrap}
+.cal-h{display:flex;justify-content:space-between;align-items:center;margin:0 0 8px}
+.cal-h b{font-size:17px}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.cal .dn{font-size:11px;color:var(--mute);text-align:center;padding:2px 0}
+.cal button{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:9px;padding:4px 2px;min-height:58px;font:inherit;font-size:11px;line-height:1.25;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:1px}
+.cal button b{font-size:13px}
+.cal button.e{visibility:hidden}
+.cal button.s{border-color:var(--accent)}
+.cal button.o{border:2px solid var(--accent);background:var(--card)}
+.cal button.b{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.cal button.td{outline:2px solid #c9507a;outline-offset:1px}
+.cal button.sel{box-shadow:0 0 0 3px rgba(201,80,122,.35)}
+.cal button.f{opacity:.45;cursor:default}
+.cal-leg{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--mute);margin:10px 0 0}
+.cal-leg i{display:inline-block;width:12px;height:12px;border-radius:4px;vertical-align:-2px;margin-right:4px;border:2px solid var(--accent)}
+.cal-leg i.b{background:var(--accent)}
+.cal-leg i.s{border-width:1px}
+.cal-det{margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--bg)}
+.cal-msg{margin-top:8px;padding:10px 12px;border-radius:10px;background:rgba(201,80,122,.12);border:1px solid rgba(201,80,122,.4)}
+.love{position:fixed;inset:0;z-index:70;background:rgba(12,8,24,.92);display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;animation:lfade .4s ease}
+.love canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.love-box{position:relative;color:#fff;max-width:420px}
+.love-t{font-size:27px;line-height:1.25;font-weight:700;text-shadow:0 0 18px rgba(255,90,150,.8),0 0 40px rgba(255,90,150,.5);animation:lpop .7s cubic-bezier(.2,1.4,.4,1) both}
+.love-s{margin-top:14px;font-size:18px;opacity:.92;animation:lfade 1.2s ease .5s both}
+.love-n{margin-top:16px;font-size:14px;opacity:.75}
+.love-g{margin-top:10px;font-size:16px;font-weight:600;color:#ffd77a}
+.love .btn{margin-top:22px;background:#e0527f;color:#fff}
+@keyframes lfade{from{opacity:0}to{opacity:1}}
+@keyframes lpop{0%{transform:scale(.5);opacity:0}60%{transform:scale(1.1);opacity:1}100%{transform:scale(1)}}
+@media (prefers-reduced-motion:reduce){.love,.love-t,.love-s{animation:none}}
 #printArea{display:none}
 @media print{
   body.printing .wrap>*:not(#printArea){display:none!important}
@@ -119,7 +158,7 @@ details summary{cursor:pointer;color:var(--accent);margin-top:10px;font-size:15p
 <div class="wrap" id="app">
 
 <div id="setup">
-  <h1>QM Fachbegriffe LOVE YOU JALA &lt;3</h1>
+  <h1>Səni çox sevirəm, Jalə ❤️</h1>
   <p class="sub">Zufällig üben – Fachbegriff ↔ Erklärung · <span id="totalCount"></span> Begriffe</p>
 
   <div class="tabs" id="tabs">
@@ -129,16 +168,23 @@ details summary{cursor:pointer;color:var(--accent);margin-top:10px;font-size:15p
     <button data-tab="scen" aria-pressed="false">Scenarios</button>
     <button data-tab="exam" aria-pressed="false">Exam &amp; progress</button>
   </div>
+  <div class="legend strip"><b>Gender</b><span class="c-d">■ der</span><span class="c-f">■ die</span><span class="c-n">■ das</span></div>
 
   <!-- ===== PRACTICE ===== -->
   <section id="tab-practice">
     <div class="panel">
       <h2>Today</h2>
-      <div class="top"><div><b id="goalNow">0</b> / <span id="goalTarget">25</span> words today</div><div id="streakTxt"></div></div>
-      <div class="bar"><i id="goalBar"></i></div>
+      <div class="goals">
+        <div class="g"><div class="top"><div><b id="goalNow">0</b> / <span id="goalTarget">25</span> words</div><div class="strk" id="streakW"></div></div>
+          <div class="bar"><i id="goalBar"></i></div></div>
+        <div class="g"><div class="top"><div><b id="minNow">0</b> / <span id="minTarget">30</span> min</div><div class="strk" id="streakT"></div></div>
+          <div class="bar t"><i id="minBar"></i></div></div>
+      </div>
+      <p class="meta" style="margin:0 0 10px"><a href="#" id="toCal" style="color:var(--accent)">📅 See my calendar</a></p>
       <p class="meta" id="srsStats" style="margin:0 0 12px"></p>
       <div class="row" style="margin:0 0 14px">
-        <label>Daily goal <input type="number" id="goal" min="5" max="500" value="25"></label>
+        <label>Daily words <input type="number" id="goal" min="5" max="500" value="25"></label>
+        <label>Daily minutes <input type="number" id="tgoal" min="5" max="600" value="30"></label>
         <label>Cards per round <input type="number" id="limit" min="5" max="200" value="25"></label>
       </div>
       <button class="btn" id="smartBtn">Start today’s session</button>
@@ -190,6 +236,9 @@ details summary{cursor:pointer;color:var(--accent);margin-top:10px;font-size:15p
         <label id="soundRow"><input type="checkbox" id="sound" checked> Read the answer aloud automatically</label>
       </div>
       <div class="legend"><span class="c-d">■ der</span><span class="c-f">■ die</span><span class="c-n">■ das</span></div>
+      <div class="row"><label><input type="checkbox" id="notifyOn" checked> Send my progress updates to Hamid ❤️</label></div>
+      <p class="meta" style="margin:6px 0 0">Hamid gets a short message when you reach a goal, hit a streak milestone or finish an exam. You can switch this off any time.
+        <span id="notifyTestWrap"><a href="#" id="notifyTest" style="color:var(--accent)">Send a test message</a> <span id="notifyTestRes"></span></span></p>
     </div>
 
     <div class="panel">
@@ -243,6 +292,14 @@ details summary{cursor:pointer;color:var(--accent);margin-top:10px;font-size:15p
 
   <!-- ===== EXAM & PROGRESS ===== -->
   <section id="tab-exam" class="hide">
+    <div class="panel" id="calPanel">
+      <h2>My days</h2>
+      <div class="cal-h"><button class="btn ghost sm" id="calPrev" aria-label="Previous month">‹</button><b id="calTitle"></b><button class="btn ghost sm" id="calNext" aria-label="Next month">›</button></div>
+      <div class="cal" id="calGrid"></div>
+      <div class="cal-leg"><span><i class="b"></i>both goals</span><span><i></i>one goal</span><span><i class="s"></i>some study</span><span>w = words · m = minutes</span></div>
+      <div class="cal-det" id="calDet"></div>
+      <p class="meta" id="calSum" style="margin:10px 0 0"></p>
+    </div>
     <div class="panel">
       <h2>Exam</h2>
       <p class="meta" style="margin:0 0 12px">No hints, no repeats and no feedback until the end – then a score. Wrong words go to your difficult list. Exams don’t change the review schedule.</p>
@@ -274,6 +331,7 @@ details summary{cursor:pointer;color:var(--accent);margin-top:10px;font-size:15p
     <span class="meta"><span id="progressTxt"></span> · <span id="timerTxt">⏱ 0:00</span></span>
   </div>
   <div class="bar thin"><i id="barFill"></i></div>
+  <div class="legend strip"><b>Gender</b><span class="c-d">■ der</span><span class="c-f">■ die</span><span class="c-n">■ das</span></div>
   <div class="panel" id="qcard">
     <span class="tag" id="qtag"></span>
     <div class="q" id="qtext"></div>
@@ -285,6 +343,7 @@ details summary{cursor:pointer;color:var(--accent);margin-top:10px;font-size:15p
 <!-- ===== ROUND DONE ===== -->
 <div id="done" class="hide">
   <h1>Round finished 🎉</h1>
+  <div class="legend strip"><b>Gender</b><span class="c-d">■ der</span><span class="c-f">■ die</span><span class="c-n">■ das</span></div>
   <div class="stats">
     <div><b id="sTotal">0</b><span class="meta">cards</span></div>
     <div><b id="sFirst" style="color:var(--ok)">0</b><span class="meta">right first time</span></div>
@@ -295,6 +354,7 @@ details summary{cursor:pointer;color:var(--accent);margin-top:10px;font-size:15p
     <div><b id="sAvg">0s</b><span class="meta">average per card</span></div>
     <div><b id="sSlowest">0s</b><span class="meta">slowest card</span></div>
   </div>
+  <p class="bonus hide" id="bonusLine" style="margin:0 0 12px"></p>
   <div class="panel hide" id="slowPanel"><h2>Took the longest</h2><ul class="miss" id="slowList"></ul></div>
   <div class="panel" id="missPanel">
     <h2>Words to review <span class="meta" style="text-transform:none;letter-spacing:0">· saved to “My difficult words”</span></h2>
@@ -310,10 +370,12 @@ details summary{cursor:pointer;color:var(--accent);margin-top:10px;font-size:15p
 <!-- ===== EXAM DONE ===== -->
 <div id="examDone" class="hide">
   <h1>Exam finished</h1>
+  <div class="legend strip"><b>Gender</b><span class="c-d">■ der</span><span class="c-f">■ die</span><span class="c-n">■ das</span></div>
   <div class="panel" style="text-align:center">
     <div class="big" id="exScore">0/0</div>
     <div id="exPct" style="font-size:20px;margin-top:4px"></div>
     <div class="meta" id="exMeta" style="margin-top:6px"></div>
+    <div class="bonus hide" id="exBonus" style="margin-top:6px"></div>
   </div>
   <div class="panel" id="exWrongPanel"><h2>Mistakes</h2><ul class="miss" id="exWrong"></ul></div>
   <div class="actions">
@@ -322,6 +384,16 @@ details summary{cursor:pointer;color:var(--accent);margin-top:10px;font-size:15p
   </div>
 </div>
 
+<div id="love" class="love hide" role="dialog" aria-label="Message for Jalə">
+  <canvas id="fx"></canvas>
+  <div class="love-box">
+    <div class="love-t">Səni çox sevirəm, Jalə ❤️</div>
+    <div class="love-s" id="loveSub"></div>
+    <div class="love-g hide" id="loveGoal">🎆 Both daily goals done! 🎆</div>
+    <div class="love-n" id="loveNums"></div>
+    <button class="btn" id="loveOk">Davam et</button>
+  </div>
+</div>
 <div id="printArea"></div>
 <div id="toast" class="toast hide"></div>
 </div>
@@ -406,22 +478,95 @@ function hardUpdate(id, ok) {
   saveHard();
 }
 const hardEntries = () => Object.keys(hard).map(Number).filter(id => byId.has(id)).map(id => byId.get(id));
-// daily goal + streak
-let daily = Object.assign({ date: '', ids: [], goal: 25, last: '', streak: 0 }, load('qm-daily-v1', {}));
+// daily goals (words + minutes), per-day history, two strict streaks
+let daily = Object.assign({ date: '', ids: [], goal: 25, tgoal: 30, last: '', streak: 0, seeded: false }, load('qm-daily-v1', {}));
 const saveDaily = () => save('qm-daily-v1', daily);
+let days = load('qm-days-v1', {});
+const saveDays = () => save('qm-days-v1', days);
 function rollDaily() { if (daily.date !== dayStr()) { daily.date = dayStr(); daily.ids = []; } }
-function streakNow() { const y = new Date(); y.setDate(y.getDate() - 1); return (daily.last === dayStr() || daily.last === dayStr(y)) ? daily.streak : 0; }
+function dayRec(k = dayStr()) { return days[k] || (days[k] = { w: 0, s: 0, g: daily.goal, tg: daily.tgoal }); }
+(function seed() {
+  rollDaily();
+  if (!daily.seeded) {
+    // carry over the old words streak: mark those days as goal-met (no numbers known)
+    if (daily.last && daily.streak > 0) {
+      const d = new Date(daily.last + 'T12:00:00');
+      for (let i = 0; i < daily.streak; i++) { const k = dayStr(d); (days[k] = days[k] || { w: 0, s: 0, g: daily.goal, tg: daily.tgoal }).l = 1; d.setDate(d.getDate() - 1); }
+    }
+    daily.seeded = true; saveDaily();
+  }
+  if (daily.ids.length) { const r = dayRec(); r.w = Math.max(r.w, daily.ids.length); }
+  saveDays();
+})();
+function dailyBonus(n) { rollDaily(); const r = dayRec(); r.b = Math.max(0, (r.b || 0) + n); saveDays(); }
+const isToday = k => k === dayStr();
+const wGoal = k => isToday(k) ? daily.goal : ((days[k] && days[k].g) || 25);
+const tGoal = k => isToday(k) ? daily.tgoal : ((days[k] && days[k].tg) || 30);
+const metW = k => !!days[k] && (!!days[k].l || days[k].w >= wGoal(k));
+const metT = k => !!days[k] && days[k].s >= tGoal(k) * 60;
+function streakOf(f) {
+  const d = new Date(); let n = 0;
+  if (!f(dayStr(d))) d.setDate(d.getDate() - 1);
+  while (f(dayStr(d))) { n++; d.setDate(d.getDate() - 1); }
+  return n;
+}
+const streakW = () => streakOf(metW), streakT = () => streakOf(metT);
 function dailyRecord(id) {
   rollDaily();
   if (daily.ids.includes(id)) return;
   daily.ids.push(id);
-  if (daily.ids.length >= daily.goal && daily.last !== dayStr()) {
-    const y = new Date(); y.setDate(y.getDate() - 1);
-    daily.streak = daily.last === dayStr(y) ? daily.streak + 1 : 1; daily.last = dayStr();
-    toast('Daily goal reached! 🔥 ' + daily.streak + (daily.streak === 1 ? ' day' : ' days') + ' in a row');
-  }
-  saveDaily(); renderToday();
+  const r = dayRec(); r.w = daily.ids.length; r.g = daily.goal; r.tg = daily.tgoal;
+  if (r.w === daily.goal) { const n = streakW(); toast('Words goal reached! 🔥 ' + n + (n === 1 ? ' day' : ' days') + ' in a row'); saveDays(); goalEvent('w'); }
+  saveDaily(); saveDays(); renderToday();
 }
+// active study time: counts only while the page is visible and she is tapping/typing
+const IDLE_MS = 90000;
+let lastAct = Date.now(), actTick = Date.now(), tickN = 0;
+['pointerdown', 'keydown', 'touchstart', 'input', 'scroll', 'click'].forEach(ev => addEventListener(ev, () => { lastAct = Date.now(); }, { passive: true, capture: true }));
+setInterval(() => {
+  const now = Date.now(), dt = Math.min(now - actTick, 2000); actTick = now;
+  if (document.visibilityState !== 'visible' || now - lastAct > IDLE_MS) return;
+  rollDaily();
+  const r = dayRec(), before = r.s; r.s += dt / 1000; r.g = daily.goal; r.tg = daily.tgoal;
+  const tg = daily.tgoal * 60;
+  if (before < tg && r.s >= tg) { saveDays(); toast('⏱ ' + daily.tgoal + ' minutes done today! ' + streakT() + (streakT() === 1 ? ' day' : ' days') + ' in a row'); goalEvent('t'); }
+  if (++tickN % 5 === 0) { saveDays(); renderGoals(); }
+}, 1000);
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') saveDays(); });
+addEventListener('pagehide', saveDays);
+setTimeout(flushNotify, 2500);
+// progress updates to Hamid via ntfy.sh (private topic); only text, only when the switch is on
+const NTFY_TOPIC = 'flanna-kv4sk693vwcubb66y7';
+let NOTE = Object.assign({ on: true, sent: {}, queue: [] }, load('qm-notify-v1', {}));
+const saveNote = () => save('qm-notify-v1', NOTE);
+let noteBusy = false;
+async function flushNotify() {
+  if (noteBusy || !NOTE.queue.length || !/^https?:$/.test(location.protocol)) return;
+  noteBusy = true;
+  try {
+    NOTE.queue = NOTE.queue.filter(q => Date.now() - q.t < 3 * 86400000).slice(-20);
+    while (NOTE.queue.length) {
+      await fetch('https://ntfy.sh/' + NTFY_TOPIC, { method: 'POST', body: NOTE.queue[0].m, mode: 'no-cors', cache: 'no-store' });
+      NOTE.queue.shift(); saveNote();
+    }
+  } catch (e) { /* offline: stays queued, retried later */ }
+  saveNote(); noteBusy = false;
+}
+function notifySend(msg) { if (!NOTE.on) return; NOTE.queue.push({ m: msg, t: Date.now() }); saveNote(); flushNotify(); }
+function notifyOnce(key, msg) {
+  const k = dayStr() + ':' + key; if (NOTE.sent[k]) return; NOTE.sent[k] = 1;
+  Object.keys(NOTE.sent).forEach(x => { if (!x.startsWith(dayStr())) delete NOTE.sent[x]; });
+  saveNote(); notifySend(msg);
+}
+const MILESTONES = [3, 7, 14, 30, 50, 100];
+function goalEvent(kind) {
+  const k = dayStr(), w = daily.ids.length, m = Math.floor(dayRec().s / 60), sw = streakW(), st = streakT();
+  if (metW(k) && metT(k)) notifyOnce('both', `Jalə: both daily goals done 🎆 ${w} words · ${m} min · streaks 🔥${sw} ⏱${st}`);
+  else notifyOnce(kind, kind === 'w' ? `Jalə reached her words goal 🔥 ${w} words · words streak ${sw}` : `Jalə reached her time goal ⏱ ${m} min · time streak ${st}`);
+  const s = kind === 'w' ? sw : st;
+  if (MILESTONES.includes(s)) notifyOnce('m' + kind + s, `Jalə: ${s}-day ${kind === 'w' ? 'words' : 'time'} streak 🔥🎉`);
+}
+addEventListener('online', flushNotify);
 let exams = load('qm-exams-v1', []);
 let OPT = Object.assign({ rate3: false, intro: false }, load('qm-opts-v1', {}));
 const saveOpt = () => save('qm-opts-v1', OPT);
@@ -450,6 +595,12 @@ $('#totalCount').textContent = DATA.length;
 $('#from').value = 1; $('#to').value = maxId; $('#exFrom').value = 1; $('#exTo').value = maxId;
 $('#goal').value = daily.goal;
 $('#goal').addEventListener('input', () => { daily.goal = Math.max(1, +$('#goal').value || 25); saveDaily(); renderToday(); });
+$('#tgoal').value = daily.tgoal;
+$('#notifyOn').checked = NOTE.on; $('#notifyTestWrap').classList.toggle('hide', !NOTE.on);
+$('#notifyOn').addEventListener('change', () => { NOTE.on = $('#notifyOn').checked; if (!NOTE.on) NOTE.queue = []; saveNote(); $('#notifyTestWrap').classList.toggle('hide', !NOTE.on); });
+$('#notifyTest').addEventListener('click', ev => { ev.preventDefault(); notifySend('Jalə: test message ❤️ the updates are working'); $('#notifyTestRes').textContent = '✓ sent'; setTimeout(() => $('#notifyTestRes').textContent = '', 3000); });
+$('#tgoal').addEventListener('input', () => { daily.tgoal = Math.max(1, +$('#tgoal').value || 30); saveDaily(); renderToday(); });
+$('#toCal').addEventListener('click', ev => { ev.preventDefault(); $('#tabs button[data-tab="exam"]').click(); window.scrollTo(0, 0); });
 ['from', 'to', 'unmastered'].forEach(i => $('#' + i).addEventListener('input', refreshCount));
 $('#rate3').checked = OPT.rate3; $('#intro').checked = OPT.intro;
 $('#rate3').addEventListener('change', () => { OPT.rate3 = $('#rate3').checked; saveOpt(); });
@@ -470,13 +621,19 @@ function pool() {
   const lo = Math.min(a, b), hi = Math.max(a, b);
   return DATA.filter(e => e.id >= lo && e.id <= hi && (!$('#unmastered').checked || !isMastered(e.id)));
 }
-function renderToday() {
+function renderGoals() {
   rollDaily();
-  const n = daily.ids.length, g = daily.goal;
+  const n = daily.ids.length, g = daily.goal, r = days[dayStr()], secs = r ? r.s : 0, tg = daily.tgoal;
   $('#goalNow').textContent = n; $('#goalTarget').textContent = g;
   $('#goalBar').style.width = Math.min(100, n / g * 100) + '%';
-  const st = streakNow();
-  $('#streakTxt').textContent = st ? '🔥 ' + st + (st === 1 ? ' day' : ' days') + ' in a row' + (daily.last === dayStr() ? ' ✓' : '') : 'No streak yet – reach the goal today!';
+  $('#minNow').textContent = Math.floor(secs / 60); $('#minTarget').textContent = tg;
+  $('#minBar').style.width = Math.min(100, secs / (tg * 60) * 100) + '%';
+  const sw = streakW(), stt = streakT();
+  $('#streakW').textContent = sw ? '🔥 ' + sw + (sw === 1 ? ' day' : ' days') + (metW(dayStr()) ? ' ✓' : '') : '🔥 reach the goal today';
+  $('#streakT').textContent = stt ? '⏱ ' + stt + (stt === 1 ? ' day' : ' days') + (metT(dayStr()) ? ' ✓' : '') : '⏱ reach the goal today';
+}
+function renderToday() {
+  renderGoals();
   const c = srsCounts();
   $('#srsStats').textContent = `Due for review: ${c.due} · New: ${c.fresh} · Learning: ${c.learning} · Mastered: ${c.mastered} / ${DATA.length}`;
 }
@@ -558,6 +715,41 @@ function grade(input, answerText) {
   const x = fold(input); if (!x) return false;
   return alternatives(answerText).some(alt => alt.length <= 3 ? x === alt : lev(x, alt) <= Math.max(1, Math.floor(alt.length * 0.2)));
 }
+// multi-part answers: any one part = correct, all parts = bonus star
+const TAILS = new Set(['betreffend', 'betreffende', 'bezogen', 'gehorig', 'gehorend']);
+const FILL = new Set(['zu', 'zum', 'zur', 'auf', 'den', 'die', 'das', 'dem', 'der', 'des', 'ein', 'eine']);
+const stripF = s => fold(s).split(' ').filter(w => w && !TAILS.has(w) && !FILL.has(w)).join(' ');
+const hasTail = s => fold(s).split(' ').some(w => TAILS.has(w));
+function splitParts(text) {
+  const seen = new Set(), out = [];
+  for (const raw of text.split(/[,;\/=]| oder /)) {
+    const f = fold(raw); if (!f) continue;
+    const key = hasTail(raw) ? stripF(raw) || f : f;
+    if (seen.has(key)) continue; seen.add(key); out.push({ f, k: key, raw: raw.replace(/\s*\([^)]*\)/g, '').replace(/\*/g, '').trim(), tail: hasTail(raw) });
+  }
+  return out;
+}
+function partDist(part, cand) {
+  const targets = [...new Set([part.f, part.tail ? part.k : stripF(part.raw) || part.f])].filter(Boolean);
+  let best = Infinity;
+  for (const t of targets) {
+    if ((' ' + cand + ' ').includes(' ' + t + ' ') && t.length > 3) best = Math.min(best, 0);
+    else if (t.length <= 3) { if (cand === t) best = Math.min(best, 0); }
+    else { const d = lev(cand, t); if (d <= Math.max(1, Math.floor(t.length * 0.2))) best = Math.min(best, d); }
+  }
+  return best;
+}
+function gradeParts(input, answerText) {
+  const parts = splitParts(answerText), pieces = [input, ...input.split(/[,;\/=]| oder /)].map(s => s.trim()).filter(Boolean);
+  const credit = new Set(); let any = false;
+  for (const piece of pieces) {
+    const cands = [...new Set([fold(piece), stripF(piece)])].filter(Boolean);
+    const d = parts.map(p => Math.min(...cands.map(c => partDist(p, c)), Infinity)), m = Math.min(...d);
+    if (m < Infinity) { any = true; d.forEach((x, i) => { if (x === m) credit.add(i); }); }
+  }
+  const ok = any || grade(input, answerText), n = credit.size;
+  return { ok, matched: n, total: parts.length, bonus: ok && parts.length >= 2 && n === parts.length, missed: parts.filter((p, i) => !credit.has(i)).map(p => p.raw) };
+}
 function diffOps(a, b) {
   const m = a.length, n = b.length;
   const D = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0));
@@ -600,7 +792,8 @@ function makeQ(id) {
   if (dir === 'mix') dir = Math.random() < .5 ? 't2d' : 'd2t';
   return { id, dir };
 }
-function resetTimers() { roundMs = 0; cardMs = 0; cardRunning = false; times = {}; answerCount = 0; }
+let roundBonus = 0;
+function resetTimers() { roundBonus = 0; roundMs = 0; cardMs = 0; cardRunning = false; times = {}; answerCount = 0; }
 function startRound(ids) {
   exam = null; queue = shuffle(ids).map(makeQ);
   total = queue.length; missed = new Map(); firstTry = new Set(); resetTimers();
@@ -693,9 +886,10 @@ function record(ok) {
 function ansBox(A) { return `<div class="ans ${A.s.length > 60 ? 'long' : ''}"><span>${html(A.p)}</span><button class="spk" data-say="" title="Play sound (R)" aria-label="Play sound">🔊</button></div>`; }
 function autoSpeak() { if (soundOn() && cur && !exam) speak(cur.A.s); }
 function finish() {
-  show('done');
+  show('done'); celebrate();
   $('#sTotal').textContent = total; $('#sFirst').textContent = firstTry.size; $('#sMiss').textContent = missed.size;
   $('#sTime').textContent = fmt(roundMs);
+  $('#bonusLine').classList.toggle('hide', roundBonus <= 0); $('#bonusLine').textContent = '★ ' + roundBonus + ' bonus point' + (roundBonus === 1 ? '' : 's') + ' – you wrote every part of the answer';
   const tv = Object.entries(times).sort((a, b) => b[1] - a[1]);
   $('#sAvg').textContent = answerCount ? fmtS(Object.values(times).reduce((a, b) => a + b, 0) / answerCount) : '–';
   $('#sSlowest').textContent = tv.length ? fmtS(tv[0][1]) : '–';
@@ -742,12 +936,12 @@ function renderMC() {
     + (exam ? `<div class="actions"><button class="btn ghost sm" id="examSkip">Skip</button></div>` : '');
   $('#kbd').textContent = exam ? 'Keys 1–4 to answer' : 'Keys 1–4 to answer · Enter = next · R = replay sound';
   $('#qbody').querySelectorAll('.opt').forEach(b => b.onclick = () => pickMC(b));
-  if (exam) $('#examSkip').onclick = () => { if (answered) return; answered = true; stopCard(); exam.results.push({ id: cur.id, dir: cur.dir, ok: false, given: '–' }); next(); };
+  if (exam) $('#examSkip').onclick = () => { if (answered) return; answered = true; stopCard(); exam.results.push({ id: cur.id, dir: cur.dir, ok: false, given: '–' }); dailyRecord(cur.id); next(); };
 }
 function pickMC(b) {
   if (answered) return; answered = true; stopCard();
   const ok = +b.dataset.id === cur.id;
-  if (exam) { exam.results.push({ id: cur.id, dir: cur.dir, ok, given: b.querySelector('span').textContent }); return next(); }
+  if (exam) { exam.results.push({ id: cur.id, dir: cur.dir, ok, given: b.querySelector('span').textContent }); dailyRecord(cur.id); return next(); }
   $('#qbody').querySelectorAll('.opt').forEach(x => { x.disabled = true; if (+x.dataset.id === cur.id) x.classList.add('good'); });
   if (!ok) b.classList.add('wrong');
   record(ok);
@@ -773,21 +967,24 @@ function checkType(skip) {
   if (answered) return;
   const val = $('#inp').value;
   answered = true; stopCard();
-  let ok = skip === true ? false : grade(val, cur.A.s);
+  const gp = skip === true ? { ok: false, matched: 0, total: 0, bonus: false } : gradeParts(val, cur.A.s);
+  let ok = gp.ok, bonus = gp.bonus;
   if (!ok && skip !== true && cur.A.s.length > 40) {
     const want = fold(cur.A.s).split(' ').filter(w => w.length > 3), got = new Set(fold(val).split(' '));
     if (want.length && want.filter(w => got.has(w)).length / want.length >= 0.7) ok = true;
   }
-  if (exam) { exam.results.push({ id: cur.id, dir: cur.dir, ok, given: val.trim() || '–' }); return next(); }
+  if (bonus) { roundBonus++; dailyBonus(1); }
+  if (exam) { exam.results.push({ id: cur.id, dir: cur.dir, ok, bonus, given: val.trim() || '–' }); dailyRecord(cur.id); return next(); }
   $('#inp').disabled = true; ['chk', 'skip', 'chars'].forEach(i => $('#' + i).classList.add('hide'));
-  const sp = skip === true ? '' : spellCheck(val, cur.A.s);
-  const verdict = good => `<div class="verdict ${good ? 'ok' : 'bad'}">${good ? (sp ? '✓ Correct – watch the spelling' : '✓ Correct') : '✗ Not quite'}</div>`;
+  const sp = skip === true || gp.matched >= 2 ? '' : spellCheck(val, cur.A.s);
+  const partsTxt = !ok || gp.total < 2 ? '' : bonus ? ` · <span class="bonus">★ Bonus – all ${gp.total} parts</span>` : ` · ${gp.matched} of ${gp.total} parts (write them all for a ★)`;
+  const verdict = good => `<div class="verdict ${good ? 'ok' : 'bad'}">${good ? (sp ? '✓ Correct – watch the spelling' : '✓ Correct') + (ok ? partsTxt : '') : '✗ Not quite'}</div>`;
   $('#after').innerHTML = verdict(ok) + sp + ansBox(cur.A)
     + `<div class="actions"><button class="btn" id="nxt">Next →</button><button class="btn ghost" id="flip">${ok ? 'Actually I was wrong' : 'I was right (typo)'}</button></div>`;
   let result = ok; record(result);
   $('#flip').onclick = () => {
     restoreSnap();
-    if (result) { firstTry.delete(cur.id); result = false; record(false); }
+    if (result) { firstTry.delete(cur.id); result = false; record(false); if (bonus) { roundBonus--; dailyBonus(-1); bonus = false; } }
     else {
       const i = queue.findIndex(q => q.id === cur.id); if (i >= 0) queue.splice(i, 1);
       const n = (missed.get(cur.id) || 1) - 1; if (n <= 0) missed.delete(cur.id); else missed.set(cur.id, n);
@@ -810,14 +1007,18 @@ $('#examBtn').onclick = () => {
   show('quiz'); next();
 };
 function finishExam() {
+  celebrate();
   const r = exam.results, score = r.filter(x => x.ok).length, n = r.length, pct = Math.round(score / n * 100);
   const prevBest = exams.length ? Math.max(...exams.map(e => e.p)) : null;
   exams.push({ t: dayStr() + ' ' + z2(new Date().getHours()) + ':' + z2(new Date().getMinutes()), s: score, n, p: pct, ms: Math.round(roundMs), f: exam.fmt, d: exam.dir });
   exams = exams.slice(-30); save('qm-exams-v1', exams);
+  const bn = r.filter(x => x.bonus).length;
+  notifySend(`Jalə finished an exam: ${score}/${n} (${pct}%)` + (bn ? ` · ★${bn}` : '') + ` · ${fmt(roundMs)}`);
   r.filter(x => !x.ok).forEach(x => hardUpdate(x.id, false));
   show('examDone');
   $('#exScore').textContent = score + ' / ' + n;
   $('#exPct').textContent = pct + '%' + (prevBest !== null ? (pct > prevBest ? ' · new personal best 🎉' : ' · best so far: ' + prevBest + '%') : '');
+  $('#exBonus').classList.toggle('hide', !bn); $('#exBonus').textContent = '★ ' + bn + ' bonus point' + (bn === 1 ? '' : 's') + ' (all parts written)';
   $('#exMeta').textContent = 'Time ' + fmt(roundMs) + ' · ' + (exam.fmt === 'mc' ? 'multiple choice' : 'typing');
   const wrong = r.filter(x => !x.ok);
   $('#exWrongPanel').classList.toggle('hide', !wrong.length);
@@ -830,6 +1031,7 @@ function finishExam() {
 $('#exAgain').onclick = () => { show('setup'); $('#examBtn').click(); };
 $('#exBack').onclick = () => { show('setup'); refreshCount(); renderExamTab(); };
 function renderExamTab() {
+  renderCal();
   $('#examHist').innerHTML = exams.length ? exams.slice(-10).reverse().map(e =>
     `<div class="hist"><span>${esc(e.t.slice(5, 10).split('-').reverse().join('.'))}</span><div class="mini"><i style="width:${e.p}%"></i></div><b>${e.s}/${e.n} · ${e.p}%</b></div>`).join('')
     + `<p class="meta" style="margin:8px 0 0">Best: ${Math.max(...exams.map(e => e.p))}% · ${exams.length} exam${exams.length === 1 ? '' : 's'} taken</p>` : 'No exams yet.';
@@ -849,11 +1051,115 @@ function progressText() {
   const last = exams[exams.length - 1];
   return `QM Fachbegriffe – progress ${date}\n`
     + `Mastered: ${c.mastered} / ${DATA.length} (${Math.round(c.mastered / DATA.length * 100)}%) · learning ${c.learning} · new ${c.fresh} · due today ${c.due}\n`
-    + `Today: ${daily.ids.length} / ${daily.goal} words · streak ${streakNow()} day${streakNow() === 1 ? '' : 's'}\n`
+    + `Today: ${daily.ids.length} / ${daily.goal} words · ${Math.floor((days[dayStr()] || { s: 0 }).s / 60)} / ${daily.tgoal} min\n`
+    + ((days[dayStr()] || {}).b ? `★ bonus today: ${days[dayStr()].b}\n` : '')
+    + `Streaks: words ${streakW()} day${streakW() === 1 ? '' : 's'} · time ${streakT()} day${streakT() === 1 ? '' : 's'}\n`
     + (last ? `Last exam: ${last.s}/${last.n} (${last.p}%) on ${last.t.slice(8, 10)}.${last.t.slice(5, 7)}. · best ${Math.max(...exams.map(e => e.p))}%\n` : 'No exam taken yet\n')
     + (worst.length ? `Hardest words: ${worst.join(', ')}` : '');
 }
 $('#copyProg').onclick = () => copyText(progressText(), 'Progress copied');
+
+/* ================= CALENDAR ================= */
+const LOVE_SUBS = [
+  'Səninlə fəxr edirəm, Jalə!',
+  'Bu gün çox yaxşı işlədin, əziz Jalə.',
+  'Hər gün arzuna bir az daha yaxınlaşırsan, gələcək həkimim.',
+  'Sən bacararsan, Jalə. Mən sənə inanıram!',
+  'Yaxşı ki, varsan, Jalə ❤️',
+  'Zəhmətin boşa getmir, Jalə.'
+];
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const WD = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+let calY = new Date().getFullYear(), calM = new Date().getMonth(), calSel = dayStr();
+const minTxt = s => { const m = Math.floor(s / 60); return m >= 60 ? Math.floor(m / 60) + 'h ' + z2(m % 60) + 'm' : m + ' min'; };
+function renderCal() {
+  const first = new Date(calY, calM, 1), n = new Date(calY, calM + 1, 0).getDate(), off = (first.getDay() + 6) % 7, today = dayStr();
+  $('#calTitle').textContent = MONTHS[calM] + ' ' + calY;
+  const now = new Date(); $('#calNext').disabled = calY === now.getFullYear() && calM === now.getMonth();
+  let g = WD.map(d => `<div class="dn">${d}</div>`).join('') + '<button class="e" disabled></button>'.repeat(off);
+  let tw = 0, ts = 0, both = 0;
+  for (let d = 1; d <= n; d++) {
+    const k = calY + '-' + z2(calM + 1) + '-' + z2(d), r = days[k], w = metW(k), t = metT(k);
+    let cls = r && (r.w || r.s >= 60) ? 's' : ''; if (w || t) cls = 'o'; if (w && t) cls = 'b';
+    if (r) { tw += r.w; ts += r.s; if (w && t) both++; }
+    const fut = k > today;
+    g += `<button class="${cls} ${k === today ? 'td' : ''} ${k === calSel ? 'sel' : ''} ${fut ? 'f' : ''}" data-k="${k}" ${fut ? 'disabled' : ''}><b>${d}</b>${r && (r.w || r.s >= 60) ? `<span>${r.l && !r.w ? '✓' : r.w + 'w'}</span><span>${Math.floor(r.s / 60)}m</span>` : ''}</button>`;
+  }
+  $('#calGrid').innerHTML = g;
+  $('#calSum').textContent = `${MONTHS[calM]}: ${tw} words · ${minTxt(ts)} · ${both} day${both === 1 ? '' : 's'} with both goals`;
+  renderCalDet();
+}
+function loveFor(k) { let x = 0; for (const c of k) x = (x * 31 + c.charCodeAt(0)) >>> 0; return LOVE_SUBS[x % LOVE_SUBS.length]; }
+function renderCalDet() {
+  const k = calSel, r = days[k], d = new Date(k + 'T12:00:00');
+  const head = `<b>${WD[(d.getDay() + 6) % 7]} ${d.getDate()} ${MONTHS[d.getMonth()]}</b>`;
+  if (!r || (!r.w && !r.s && !r.l)) { $('#calDet').innerHTML = head + '<div class="meta">Nothing recorded this day.</div>'; return; }
+  const w = metW(k), t = metT(k);
+  $('#calDet').innerHTML = head + `<div>${r.l && !r.w ? 'Words goal reached ✓' : `${r.w} words (goal ${wGoal(k)}) ${w ? '✓' : ''}`}</div><div>${minTxt(r.s)} (goal ${tGoal(k)} min) ${t ? '✓' : ''}</div>`
+    + (r.b ? `<div class="bonus">★ ${r.b} bonus point${r.b === 1 ? '' : 's'}</div>` : '') + (w && t ? `<div class="cal-msg">❤️ Səni çox sevirəm, Jalə.<br>${loveFor(k)}</div>` : '');
+}
+$('#calGrid').addEventListener('click', ev => { const b = ev.target.closest('button[data-k]'); if (!b || b.disabled) return; calSel = b.dataset.k; renderCal(); });
+$('#calPrev').onclick = () => { calM--; if (calM < 0) { calM = 11; calY--; } renderCal(); };
+$('#calNext').onclick = () => { calM++; if (calM > 11) { calM = 0; calY++; } renderCal(); };
+
+/* ================= LOVE + FIREWORKS ================= */
+const FX = (() => {
+  const cv = $('#fx'), ctx = cv.getContext('2d');
+  let parts = [], hearts = [], raf = 0, timers = [], W = 0, H = 0;
+  function size() { const dpr = Math.min(2, window.devicePixelRatio || 1); W = innerWidth; H = innerHeight; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
+  const HUES = [335, 350, 45, 50, 285, 195, 15];
+  function burst(x, y, big) {
+    const hue = HUES[Math.random() * HUES.length | 0], n = big ? 90 : 60;
+    for (let i = 0; i < n; i++) {
+      const a = Math.PI * 2 * i / n + Math.random() * .15, v = (big ? 5.2 : 3.8) * (.45 + Math.random() * .6);
+      parts.push({ x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v, life: 1, dec: .008 + Math.random() * .01, h: hue + Math.random() * 24 - 12, r: 1.5 + Math.random() * 1.5 });
+    }
+  }
+  function frame() {
+    ctx.globalCompositeOperation = 'destination-out'; ctx.fillStyle = 'rgba(0,0,0,.2)'; ctx.fillRect(0, 0, W, H);
+    ctx.globalCompositeOperation = 'lighter';
+    parts = parts.filter(p => p.life > 0);
+    for (const p of parts) {
+      p.x += p.vx; p.y += p.vy; p.vx *= .985; p.vy = p.vy * .985 + .045; p.life -= p.dec;
+      ctx.fillStyle = `hsla(${p.h},100%,65%,${Math.max(0, p.life)})`; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 7); ctx.fill();
+    }
+    ctx.globalCompositeOperation = 'source-over';
+    hearts = hearts.filter(t => t.y > -40);
+    for (const t of hearts) { t.y += t.vy; t.x += Math.sin((t.y + t.ph) / 28) * .6; ctx.globalAlpha = .85; ctx.font = t.sz + 'px serif'; ctx.fillText('❤️', t.x, t.y); }
+    ctx.globalAlpha = 1;
+    if (parts.length || hearts.length || timers.length) raf = requestAnimationFrame(frame); else raf = 0;
+  }
+  function start(big) {
+    stop(); size(); ctx.clearRect(0, 0, W, H);
+    const nb = big ? 16 : 8, gap = big ? 380 : 450;
+    for (let i = 0; i < nb; i++) timers.push(setTimeout(() => { burst(W * (.15 + Math.random() * .7), H * (.12 + Math.random() * .42), big); timers.shift(); }, 150 + i * gap));
+    const nh = big ? 22 : 12;
+    for (let i = 0; i < nh; i++) hearts.push({ x: Math.random() * W, y: H + 20 + Math.random() * H * .8, vy: -(.9 + Math.random() * 1.4), ph: Math.random() * 100, sz: 16 + Math.random() * 18 | 0 });
+    raf = requestAnimationFrame(frame);
+  }
+  function stop() { timers.forEach(clearTimeout); timers = []; parts = []; hearts = []; if (raf) cancelAnimationFrame(raf); raf = 0; ctx.clearRect(0, 0, W, H); }
+  addEventListener('resize', () => { if (raf) size(); });
+  return { start, stop };
+})();
+let loveAt = 0, lastSub = -1, celT = null;
+function celebrate() {
+  clearTimeout(celT);
+  celT = setTimeout(() => {
+    rollDaily();
+    const k = dayStr(), r = days[k] || { s: 0 }, both = metW(k) && metT(k);
+    let i; do { i = Math.random() * LOVE_SUBS.length | 0; } while (i === lastSub && LOVE_SUBS.length > 1); lastSub = i;
+    $('#loveSub').textContent = LOVE_SUBS[i];
+    $('#loveGoal').classList.toggle('hide', !both);
+    $('#loveNums').textContent = `Today: ${daily.ids.length} / ${daily.goal} words · ${Math.floor(r.s / 60)} / ${daily.tgoal} min`;
+    $('#love').classList.remove('hide'); loveAt = Date.now();
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) FX.start(both);
+    setTimeout(() => $('#loveOk').focus(), 50);
+  }, 450);
+}
+function closeLove() { if (Date.now() - loveAt < 900) return; $('#love').classList.add('hide'); FX.stop(); renderToday(); }
+$('#loveOk').onclick = closeLove;
+$('#love').addEventListener('click', ev => { if (ev.target.id === 'love' || ev.target.tagName === 'CANVAS') closeLove(); });
+document.addEventListener('keydown', ev => { if (!$('#love').classList.contains('hide') && (ev.key === 'Escape' || ev.key === 'Enter' || ev.key === ' ') && !ev.repeat) { ev.preventDefault(); ev.stopPropagation(); closeLove(); } }, true);
 
 /* ================= WORD LIST ================= */
 const sfold = s => s.toLowerCase().replace(/ß/g, 'ss').replace(/ä/g, 'a').replace(/ö/g, 'o').replace(/ü/g, 'u');
@@ -967,7 +1273,7 @@ function renderSc() {
     const nf = flagLines().length, score = sc.score, n = sc.list.length; sc = null;
     box.innerHTML = `<h2>Scenarios</h2><div class="big">${score} / ${n}</div><p class="meta">Words you missed were added to “My difficult words”.</p>
       <div class="actions"><button class="btn" id="scAgain">Another ${SC_ROUND}</button><button class="btn ghost" id="scBack">Back</button>${nf ? `<button class="btn ghost" id="scCopyFlags">Copy flagged (${nf})</button>` : ''}</div>`;
-    $('#scAgain').onclick = startSc; $('#scBack').onclick = renderScenIntro; bindFlagButtons(); return;
+    $('#scAgain').onclick = startSc; $('#scBack').onclick = renderScenIntro; bindFlagButtons(); celebrate(); return;
   }
   const q = sc.list[sc.i], e = byId.get(q.id);
   const opts = shuffle([e, ...scenDistractors(q, e)]);
@@ -982,7 +1288,7 @@ function renderSc() {
     const ok = +b.dataset.id === q.id; if (ok) sc.score++;
     box.querySelectorAll('.opt').forEach(x => { x.disabled = true; if (+x.dataset.id === q.id) x.classList.add('good'); });
     if (!ok) b.classList.add('wrong');
-    hardUpdate(q.id, ok);
+    hardUpdate(q.id, ok); dailyRecord(q.id);
     const sentence = scSentence(q, e);
     box.querySelector('.blank').innerHTML = html(e.t);
     $('#scAfter').innerHTML = `<p style="margin:12px 0 0"><b>${html(e.t)}</b> = ${html(e.d)}</p><div class="actions"><button class="spk" data-say="${esc(sentence)}" title="Play sentence">🔊</button><button class="btn" id="scNext">Next →</button></div>`;
