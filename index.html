@@ -152,10 +152,28 @@ details summary{cursor:pointer;color:var(--accent);margin-top:10px;font-size:15p
   #printArea td{border-bottom:1px solid #bbb;padding:5px 6px;vertical-align:top}
   #printArea td:first-child{width:38%;font-weight:600}
 }
+
+/* ===== Flanna: mode switch (Latin practice | Anki) ===== */
+.modebar{display:flex;gap:6px;margin:0 0 14px}
+.modebar button{flex:1;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:11px 14px;border-radius:10px;font:inherit;font-weight:600;cursor:pointer}
+.modebar button[aria-pressed=true]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+body:not([data-screen="setup"]):not(.anki) #modeBar{display:none}
+body.anki #setup{display:none!important}
+body.anki .wrap{padding-bottom:calc(8px + env(safe-area-inset-bottom))}
+#ankiPane iframe{width:100%;height:calc(100vh - 96px - env(safe-area-inset-top) - env(safe-area-inset-bottom));height:calc(100dvh - 96px - env(safe-area-inset-top) - env(safe-area-inset-bottom));min-height:460px;border:0;display:block;background:transparent}
+body.anki-study #modeBar{display:none}
+body.anki-study .wrap{max-width:none;padding:env(safe-area-inset-top) 0 0}
+body.anki-study #ankiPane iframe{height:calc(100vh - env(safe-area-inset-top));height:calc(100dvh - env(safe-area-inset-top))}
 </style>
 </head>
-<body>
+<body data-screen="setup">
 <div class="wrap" id="app">
+
+<div class="modebar" id="modeBar">
+  <button data-mode="latin" aria-pressed="true">Latin practice</button>
+  <button data-mode="anki" aria-pressed="false">Anki</button>
+</div>
+<div id="ankiPane" class="hide"><iframe id="ankiFrame" title="Anki" allow="autoplay; web-share"></iframe></div>
 
 <div id="setup">
   <h1>Səni çox sevirəm, Jalə ❤️</h1>
@@ -784,7 +802,7 @@ function spellCheck(typed, answer) {
 /* ================= QUIZ ENGINE ================= */
 let queue = [], total = 0, cur = null, missed = new Map(), firstTry = new Set(), answered = false, exam = null;
 const MODE = () => exam ? exam.fmt : S.mode;
-function show(w) { ['setup', 'quiz', 'done', 'examDone'].forEach(x => $('#' + x).classList.toggle('hide', x !== w)); window.scrollTo(0, 0); }
+function show(w) { document.body.dataset.screen = w; ['setup', 'quiz', 'done', 'examDone'].forEach(x => $('#' + x).classList.toggle('hide', x !== w)); window.scrollTo(0, 0); }
 function makeQ(id) {
   let dir = exam ? exam.dir : S.dir;
   if (!exam && S.mode === 'explain') dir = 't2d';
@@ -1317,6 +1335,28 @@ document.addEventListener('keydown', ev => {
     if (answered && ev.key === 'Enter' && !typing) { ev.preventDefault(); next(); }
   }
 });
+
+/* ================= MODE SWITCH (Latin practice | Anki) ================= */
+(function () {
+  const bar = document.getElementById('modeBar'), pane = document.getElementById('ankiPane'), frame = document.getElementById('ankiFrame');
+  function setMode(m, persist) {
+    const anki = m === 'anki';
+    document.body.classList.toggle('anki', anki);
+    bar.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.mode === m)));
+    pane.classList.toggle('hide', !anki);
+    if (anki && !frame.getAttribute('src')) frame.setAttribute('src', 'recall.html');
+    if (!anki) document.body.classList.remove('anki-study');
+    if (persist !== false) { try { localStorage.setItem('flanna.mode', m); } catch (e) {} }
+    window.scrollTo(0, 0);
+  }
+  bar.addEventListener('click', e => { const b = e.target.closest('button[data-mode]'); if (b) setMode(b.dataset.mode); });
+  window.addEventListener('message', e => {
+    if (e.origin !== location.origin || !e.data || e.data.recall !== 'study') return;
+    document.body.classList.toggle('anki-study', !!e.data.on);
+  });
+  let m = 'latin'; try { m = localStorage.getItem('flanna.mode') || 'latin'; } catch (e) {}
+  setMode(m === 'anki' ? 'anki' : 'latin', false);
+})();
 
 /* ================= INIT ================= */
 refreshCount();
