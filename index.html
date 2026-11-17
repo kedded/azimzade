@@ -387,8 +387,7 @@ details summary{cursor:pointer;color:var(--accent);margin-top:10px;font-size:15p
 <div id="love" class="love hide" role="dialog" aria-label="Message for Jalə">
   <canvas id="fx"></canvas>
   <div class="love-box">
-    <div class="love-t">Səni çox sevirəm, Jalə ❤️</div>
-    <div class="love-s" id="loveSub"></div>
+    <div class="love-t" id="loveTitle">Səni çox sevirəm, Jalə ❤️</div>
     <div class="love-g hide" id="loveGoal">🎆 Both daily goals done! 🎆</div>
     <div class="love-n" id="loveNums"></div>
     <button class="btn" id="loveOk">Davam et</button>
@@ -1060,13 +1059,11 @@ function progressText() {
 $('#copyProg').onclick = () => copyText(progressText(), 'Progress copied');
 
 /* ================= CALENDAR ================= */
-const LOVE_SUBS = [
-  'Səninlə fəxr edirəm, Jalə!',
-  'Bu gün çox yaxşı işlədin, əziz Jalə.',
-  'Hər gün arzuna bir az daha yaxınlaşırsan, gələcək həkimim.',
-  'Sən bacararsan, Jalə. Mən sənə inanıram!',
+const LOVE_MSGS = [
+  'Səni çox sevirəm, Jalə ❤️',
   'Yaxşı ki, varsan, Jalə ❤️',
-  'Zəhmətin boşa getmir, Jalə.'
+  'Hər gün arzuna bir az daha yaxınlaşırsan, gələcək həkimim.',
+  'Səninlə fəxr edirəm, Jalə!'
 ];
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const WD = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
@@ -1089,14 +1086,14 @@ function renderCal() {
   $('#calSum').textContent = `${MONTHS[calM]}: ${tw} words · ${minTxt(ts)} · ${both} day${both === 1 ? '' : 's'} with both goals`;
   renderCalDet();
 }
-function loveFor(k) { let x = 0; for (const c of k) x = (x * 31 + c.charCodeAt(0)) >>> 0; return LOVE_SUBS[x % LOVE_SUBS.length]; }
+function loveFor(k) { let x = 0; for (const c of k) x = (x * 31 + c.charCodeAt(0)) >>> 0; return LOVE_MSGS[x % LOVE_MSGS.length]; }
 function renderCalDet() {
   const k = calSel, r = days[k], d = new Date(k + 'T12:00:00');
   const head = `<b>${WD[(d.getDay() + 6) % 7]} ${d.getDate()} ${MONTHS[d.getMonth()]}</b>`;
   if (!r || (!r.w && !r.s && !r.l)) { $('#calDet').innerHTML = head + '<div class="meta">Nothing recorded this day.</div>'; return; }
   const w = metW(k), t = metT(k);
   $('#calDet').innerHTML = head + `<div>${r.l && !r.w ? 'Words goal reached ✓' : `${r.w} words (goal ${wGoal(k)}) ${w ? '✓' : ''}`}</div><div>${minTxt(r.s)} (goal ${tGoal(k)} min) ${t ? '✓' : ''}</div>`
-    + (r.b ? `<div class="bonus">★ ${r.b} bonus point${r.b === 1 ? '' : 's'}</div>` : '') + (w && t ? `<div class="cal-msg">❤️ Səni çox sevirəm, Jalə.<br>${loveFor(k)}</div>` : '');
+    + (r.b ? `<div class="bonus">★ ${r.b} bonus point${r.b === 1 ? '' : 's'}</div>` : '') + (w && t ? `<div class="cal-msg">${loveFor(k)}</div>` : '');
 }
 $('#calGrid').addEventListener('click', ev => { const b = ev.target.closest('button[data-k]'); if (!b || b.disabled) return; calSel = b.dataset.k; renderCal(); });
 $('#calPrev').onclick = () => { calM--; if (calM < 0) { calM = 11; calY--; } renderCal(); };
@@ -1147,8 +1144,8 @@ function celebrate() {
   celT = setTimeout(() => {
     rollDaily();
     const k = dayStr(), r = days[k] || { s: 0 }, both = metW(k) && metT(k);
-    let i; do { i = Math.random() * LOVE_SUBS.length | 0; } while (i === lastSub && LOVE_SUBS.length > 1); lastSub = i;
-    $('#loveSub').textContent = LOVE_SUBS[i];
+    let i; do { i = Math.random() * LOVE_MSGS.length | 0; } while (i === lastSub && LOVE_MSGS.length > 1); lastSub = i;
+    $('#loveTitle').textContent = LOVE_MSGS[i];
     $('#loveGoal').classList.toggle('hide', !both);
     $('#loveNums').textContent = `Today: ${daily.ids.length} / ${daily.goal} words · ${Math.floor(r.s / 60)} / ${daily.tgoal} min`;
     $('#love').classList.remove('hide'); loveAt = Date.now();
