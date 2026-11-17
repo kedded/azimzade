@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>QM Fachbegriffe – Übungstrainer</title>
+<title>Flanna</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="theme-color" content="#2f5d50">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="QM Trainer">
+<meta name="apple-mobile-web-app-title" content="Flanna">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <style>
 :root{
@@ -260,7 +260,7 @@ details summary{cursor:pointer;color:var(--accent);margin-top:10px;font-size:15p
     <div class="panel"><h2>Exam history</h2><div id="examHist" class="meta">No exams yet.</div></div>
     <div class="panel"><h2>Progress by section</h2><div id="sections"></div></div>
     <div class="panel">
-      <h2>Share my progress</h2>
+      <h2>Send my progress to my Mümü</h2>
       <pre id="progPre" class="meta" style="white-space:pre-wrap;margin:0 0 12px;font-family:inherit"></pre>
       <button class="btn" id="copyProg">Copy my progress</button>
     </div>
@@ -958,7 +958,7 @@ function renderScenIntro() {
   $('#scenPanel').innerHTML = `<h2>Scenarios</h2>
     <p class="meta" style="margin:0 0 12px">Practice sentences to learn the terms. The meanings always come from your word list. ${SCEN.length} situations in total; every round shows ${SC_ROUND} random ones.</p>
     <div class="actions" style="margin-top:0"><button class="btn" id="scStart">Start</button>${nf ? `<button class="btn ghost" id="scCopyFlags">Copy flagged (${nf})</button><button class="btn ghost" id="scClearFlags">Clear flags</button>` : ''}</div>
-    <p class="meta" style="margin:12px 0 0">Something looks wrong or confusing? Tap “⚑ Flag this” on that question, then copy the flagged list and send it to the person who made this page.</p>`;
+    <p class="meta" style="margin:12px 0 0">Something looks wrong or confusing? Tap “⚑ Flag this” on that question, then copy the flagged list and send it to your Mümü.</p>`;
   $('#scStart').onclick = startSc; bindFlagButtons();
 }
 function renderSc() {

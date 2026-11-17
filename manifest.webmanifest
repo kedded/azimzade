@@ -1,6 +1,6 @@
 {
-  "name": "QM Fachbegriffe – Übungstrainer",
-  "short_name": "QM Trainer",
+  "name": "Flanna",
+  "short_name": "Flanna",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
